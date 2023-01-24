@@ -37,7 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
         return new QuestionDTO(
                 question.getId(),
                 question.getQuestionText(),
-                question.getQuestionText(),
+                question.getTaskText(),
                 question.getTopic().getName(),
                 question.getType(),
                 question.getLevel(),

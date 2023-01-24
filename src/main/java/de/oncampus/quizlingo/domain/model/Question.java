@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Entity
 public class Question {
@@ -18,6 +17,7 @@ public class Question {
     private Topic topic;
 
     private String questionText;
+    private String taskText;
     private String type;
 
     @OneToMany
@@ -94,5 +94,13 @@ public class Question {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getTaskText() {
+        return taskText;
+    }
+
+    public void setTaskText(String taskText) {
+        this.taskText = taskText;
     }
 }
