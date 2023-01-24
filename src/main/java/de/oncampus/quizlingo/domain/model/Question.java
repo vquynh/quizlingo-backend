@@ -18,6 +18,7 @@ public class Question {
     private Topic topic;
 
     private String questionText;
+    private String type;
 
     @OneToMany
     private List<Term> terms;
@@ -85,5 +86,13 @@ public class Question {
 
     public void setCorrectAnswer(int correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

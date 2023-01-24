@@ -4,6 +4,9 @@ import java.util.List;
 
 public class QuestionDTO {
 
+    private Integer correctOption;
+    private String taskText;
+
     public QuestionDTO(Long id, String questionText, String taskText, String category, String type, Integer level, List<String> terms, List<String> options, Integer correctOption) {
         this.id = id;
         this.category = category;
@@ -17,7 +20,8 @@ public class QuestionDTO {
     }
     private Long id;
     private String questionText;
-    private String topic;
+    private String category;
+    private String type;
     private List<String> terms;
     private List<String> options;
     private Integer correctAnswer;
@@ -31,12 +35,12 @@ public class QuestionDTO {
         this.questionText = questionText;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public List<String> getTerms() {
@@ -69,5 +73,29 @@ public class QuestionDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTaskText() {
+        return taskText;
+    }
+
+    public void setTaskText(String taskText) {
+        this.taskText = taskText;
+    }
+
+    public Integer getCorrectOption() {
+        return correctOption;
+    }
+
+    public void setCorrectOption(Integer correctOption) {
+        this.correctOption = correctOption;
     }
 }

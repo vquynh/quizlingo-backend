@@ -69,6 +69,6 @@ public class QuestionController {
      */
     @PostMapping("/questions")
     public QuestionDTO createQuestion(@RequestBody QuestionCommand questionCommand){
-        return questionService.createQuestion(questionCommand);
+        return questionService.addQuestion(questionCommand);
     }
 }

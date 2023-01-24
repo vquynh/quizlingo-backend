@@ -37,10 +37,13 @@ public class QuestionServiceImpl implements QuestionService {
         return new QuestionDTO(
                 question.getId(),
                 question.getQuestionText(),
+                question.getQuestionText(),
                 question.getTopic().getName(),
+                question.getType(),
                 question.getLevel(),
                 terms,
-                question.getOptions());
+                question.getOptions(),
+                question.getCorrectAnswer());
     }
 
     @Override
