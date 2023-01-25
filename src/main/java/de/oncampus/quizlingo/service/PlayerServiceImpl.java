@@ -2,10 +2,10 @@ package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.PlayerDTO;
 import de.oncampus.quizlingo.domain.model.Game;
-import de.oncampus.quizlingo.domain.model.user.Account;
+import de.oncampus.quizlingo.domain.model.user.User;
 import de.oncampus.quizlingo.domain.model.user.Player;
-import de.oncampus.quizlingo.repository.AccountRepository;
 import de.oncampus.quizlingo.repository.PlayerRepository;
+import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,25 +14,25 @@ import java.util.Objects;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final PlayerRepository playerRepository;
 
-    public PlayerServiceImpl(AccountRepository accountRepository, PlayerRepository playerRepository) {
-        this.accountRepository = accountRepository;
+    public PlayerServiceImpl(UserRepository userRepository, PlayerRepository playerRepository) {
+        this.userRepository = userRepository;
         this.playerRepository = playerRepository;
     }
 
     @Override
     public PlayerDTO getPlayerByUsername(String username) {
-        if(accountRepository.existsByUserName(username)){
-            Account account = accountRepository.findByUserName(username);
-            return toPlayerDTO(playerRepository.findByAccountId(account.getId()));
+        if(userRepository.existsByUserName(username)){
+            User user = userRepository.findByUserName(username);
+            return toPlayerDTO(playerRepository.findByUserId(user.getId()));
         }
         return null;
     }
 
     private PlayerDTO toPlayerDTO(Player player){
-        String username = player.getAccount().getUserName();
+        String username = player.getUser().getUserName();
         PlayerDTO playerDTO = new PlayerDTO(username);
         Collection<Game> games = player.getGames();
         int totalGames = games.size();

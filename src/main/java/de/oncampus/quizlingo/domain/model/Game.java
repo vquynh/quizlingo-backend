@@ -1,6 +1,6 @@
 package de.oncampus.quizlingo.domain.model;
 
-import de.oncampus.quizlingo.domain.model.user.Account;
+import de.oncampus.quizlingo.domain.model.user.User;
 import de.oncampus.quizlingo.domain.model.user.Player;
 
 import javax.persistence.*;
@@ -25,7 +25,7 @@ public class Game {
     private Collection<Player> players;
 
    @OneToOne
-   private Account wonBy;
+   private User wonBy;
 
     private boolean isEnded;
 
@@ -77,11 +77,11 @@ public class Game {
         this.players = players;
     }
 
-    public Account getWonBy() {
+    public User getWonBy() {
         return wonBy;
     }
 
-    public void setWonBy(Account wonBy) {
+    public void setWonBy(User wonBy) {
         this.wonBy = wonBy;
     }
 }

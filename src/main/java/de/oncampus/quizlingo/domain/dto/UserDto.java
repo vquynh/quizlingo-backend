@@ -1,12 +1,10 @@
 package de.oncampus.quizlingo.domain.dto;
 
-import de.oncampus.quizlingo.validation.PasswordMatches;
 import de.oncampus.quizlingo.validation.ValidPassword;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@PasswordMatches
 public class UserDto {
 
     @NotNull
@@ -15,10 +13,6 @@ public class UserDto {
 
     @ValidPassword
     private String password;
-
-    @NotNull
-    @Size(min = 1)
-    private String matchingPassword;
 
 //    @ValidEmail
 //    @NotNull
@@ -49,14 +43,6 @@ public class UserDto {
 
     public void setPassword(final String password) {
         this.password = password;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(final String matchingPassword) {
-        this.matchingPassword = matchingPassword;
     }
 
     public String getUsername() {

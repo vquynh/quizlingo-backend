@@ -2,17 +2,15 @@ package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.GameDTO;
 import de.oncampus.quizlingo.domain.model.Game;
-import de.oncampus.quizlingo.domain.model.user.Account;
+import de.oncampus.quizlingo.domain.model.user.User;
 import de.oncampus.quizlingo.domain.model.user.Player;
 import de.oncampus.quizlingo.exception.InvalidNumberOfPlayers;
 import de.oncampus.quizlingo.exception.PlayerNotFoundException;
-import de.oncampus.quizlingo.repository.AccountRepository;
 import de.oncampus.quizlingo.repository.GameRepository;
 import de.oncampus.quizlingo.repository.PlayerRepository;
+import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +20,12 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, AccountRepository accountRepository) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
-        this.accountRepository = accountRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -42,11 +40,11 @@ public class GameServiceImpl implements GameService {
     }
 
     private Player getPlayer(String username) throws PlayerNotFoundException {
-        Account account = accountRepository.findByUserName(username);
-        if(account == null){
+        User user = userRepository.findByUserName(username);
+        if(user == null){
             throw  new PlayerNotFoundException("No player found with username: " + username);
         }
-        return  playerRepository.findByAccountId(account.getId());
+        return  playerRepository.findByUserId(user.getId());
     }
 
     private Game toGameEntity(GameDTO gameDTO) throws InvalidNumberOfPlayers, PlayerNotFoundException {
