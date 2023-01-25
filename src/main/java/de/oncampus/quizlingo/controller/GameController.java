@@ -1,7 +1,6 @@
 package de.oncampus.quizlingo.controller;
 
 import de.oncampus.quizlingo.domain.dto.GameDTO;
-import de.oncampus.quizlingo.domain.dto.PlayerDTO;
 import de.oncampus.quizlingo.exception.InvalidNumberOfPlayers;
 import de.oncampus.quizlingo.exception.PlayerNotFoundException;
 import de.oncampus.quizlingo.service.GameService;
@@ -45,7 +44,7 @@ public class GameController {
      */
     @PostMapping("/games")
     public GameDTO createGame(@RequestBody GameDTO gameDTO) throws InvalidNumberOfPlayers, PlayerNotFoundException {
-        return gameService.createGame(gameDTO);
+        return gameService.addGame(gameDTO);
     }
 
 
