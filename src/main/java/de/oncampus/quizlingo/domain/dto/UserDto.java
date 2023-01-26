@@ -4,6 +4,7 @@ import de.oncampus.quizlingo.validation.ValidPassword;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class UserDto {
 
@@ -14,28 +15,8 @@ public class UserDto {
     @ValidPassword
     private String password;
 
-//    @ValidEmail
-//    @NotNull
-//    @Size(min = 1, message = "{Size.userDto.email}")
-//    private String email;
-
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(final String email) {
-//        this.email = email;
-//    }
-//
-//    private Integer role;
-//
-//    public Integer getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(final Integer role) {
-//        this.role = role;
-//    }
+    private String name;
+    private String imageURL;
 
     public String getPassword() {
         return password;
@@ -51,5 +32,21 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

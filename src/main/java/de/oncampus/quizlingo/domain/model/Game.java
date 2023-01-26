@@ -1,7 +1,6 @@
 package de.oncampus.quizlingo.domain.model;
 
 import de.oncampus.quizlingo.domain.model.user.User;
-import de.oncampus.quizlingo.domain.model.user.Player;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -22,7 +21,7 @@ public class Game {
     private List<Round> rounds;
 
    @ManyToMany(mappedBy = "games")
-    private Collection<Player> players;
+    private Collection<User> users;
 
    @OneToOne
    private User wonBy;
@@ -69,12 +68,12 @@ public class Game {
         isEnded = ended;
     }
 
-    public Collection<Player> getPlayers() {
-        return players;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setPlayers(Collection<Player> players) {
-        this.players = players;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 
     public User getWonBy() {

@@ -1,9 +1,8 @@
 package de.oncampus.quizlingo.controller;
 
 
-public class PlayerAnswer {
+public class UserInteraction {
     String user;
-    String timestamp;
     String sessionId;
     int selectedAnswer;
     long questionId;
@@ -14,14 +13,6 @@ public class PlayerAnswer {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getSessionId() {

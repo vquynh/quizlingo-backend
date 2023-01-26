@@ -1,8 +1,11 @@
 package de.oncampus.quizlingo.domain.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.oncampus.quizlingo.domain.model.Game;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User {
@@ -18,9 +21,35 @@ public class User {
     @Column
     @JsonIgnore
     private String passwordHash;
-    private String firstName;
-    private String lastName;
-    private boolean isAdmin;
+    @Column
+    private String name;
+
+    @Column
+    private String imageURL;
+
+    @ManyToMany(
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "users_games",
+            joinColumns = {@JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"
+            )},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "game_id",
+                    referencedColumnName = "id"
+            )}
+    )
+    private Collection<Game> games;
+
+    public Collection<Game> getGames() {
+        return List.copyOf(this.games);
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -46,27 +75,19 @@ public class User {
         this.passwordHash = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

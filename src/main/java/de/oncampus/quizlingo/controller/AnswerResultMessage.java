@@ -1,6 +1,14 @@
 package de.oncampus.quizlingo.controller;
 
 public class AnswerResultMessage {
+    public AnswerResultMessage(String user, String timestamp, int selectedAnswer, long questionId, boolean isCorrect) {
+        this.user = user;
+        this.timestamp = timestamp;
+        this.selectedAnswer = selectedAnswer;
+        this.questionId = questionId;
+        this.isCorrect = isCorrect;
+    }
+
     public String getUser() {
         return user;
     }
