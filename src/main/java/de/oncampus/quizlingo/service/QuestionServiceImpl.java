@@ -43,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
                 question.getLevel(),
                 terms,
                 question.getOptions(),
-                question.getCorrectAnswer());
+                question.getCorrectOption());
     }
 
     @Override
@@ -96,8 +96,9 @@ public class QuestionServiceImpl implements QuestionService {
         }
         question.setTopic(topic);
         question.setOptions(createQuestionCommand.getOptions());
-        question.setCorrectAnswer(createQuestionCommand.getCorrectAnswer());
+        question.setCorrectOption(createQuestionCommand.getCorrectOption());
         question.setLevel(createQuestionCommand.getLevel());
+        question.setTaskText(createQuestionCommand.getTaskText());
         List<Term> terms = new ArrayList<>();
         createQuestionCommand.getTerms().forEach(name -> {
             Term term = termRepository.findByName(name);

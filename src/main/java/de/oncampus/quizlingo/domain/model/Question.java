@@ -1,5 +1,7 @@
 package de.oncampus.quizlingo.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
 
     @OneToOne
@@ -24,9 +27,9 @@ public class Question {
     private List<Term> terms;
 
     @ElementCollection
-    Map<Integer, String> options = new HashMap<>();
+    List<String> options = new ArrayList<>();
 
-    private int correctAnswer;
+    private int correctOption;
 
     private int level;
 
@@ -47,13 +50,11 @@ public class Question {
     }
 
     public List<String> getOptions() {
-        return new ArrayList<>(options.values());
+        return List.copyOf(options);
     }
 
     public void setOptions(List<String> optionsText) {
-        for (int i = 0; i < optionsText.size(); i++) {
-            this.options.put(i, optionsText.get(i));
-        }
+        this.options = optionsText;
     }
 
     public int getLevel() {
@@ -80,12 +81,12 @@ public class Question {
         this.terms = terms;
     }
 
-    public int getCorrectAnswer() {
-        return correctAnswer;
+    public int getCorrectOption() {
+        return correctOption;
     }
 
-    public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectOption(int correctAnswer) {
+        this.correctOption = correctAnswer;
     }
 
     public String getType() {

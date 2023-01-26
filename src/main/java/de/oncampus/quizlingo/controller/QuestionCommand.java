@@ -5,14 +5,17 @@ import java.util.List;
 public class QuestionCommand {
 
 
-    public QuestionCommand(Long id, String name, String topic, Integer level, List<String> terms, List<String> options, Integer correctAnswer) {
+    private String taskText;
+
+    public QuestionCommand(Long id, String questionText, String taskText, String topic, Integer level, List<String> terms, List<String> options, Integer correctOption) {
         this.id = id;
-        this.questionText = name;
+        this.taskText = taskText;
+        this.questionText = questionText;
         this.level = level;
         this.topic = topic;
         this.terms = terms;
         this.options = options;
-        this.correctAnswer = correctAnswer;
+        this.correctOption = correctOption;
     }
 
     private Long id;
@@ -20,7 +23,7 @@ public class QuestionCommand {
     private String topic;
     private List<String> terms;
     private List<String> options;
-    private Integer correctAnswer;
+    private Integer correctOption;
     private Integer level;
 
     public String getQuestionText() {
@@ -71,11 +74,19 @@ public class QuestionCommand {
         this.id = id;
     }
 
-    public Integer getCorrectAnswer() {
-        return correctAnswer;
+    public Integer getCorrectOption() {
+        return correctOption;
     }
 
-    public void setCorrectAnswer(Integer correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectOption(Integer correctOption) {
+        this.correctOption = correctOption;
+    }
+
+    public String getTaskText() {
+        return taskText;
+    }
+
+    public void setTaskText(String taskText) {
+        this.taskText = taskText;
     }
 }
