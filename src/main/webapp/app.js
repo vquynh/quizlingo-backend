@@ -20,7 +20,8 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/interactions', function (answer) {
             console.log('Answer: ' + answer);
-            showGreeting(JSON.parse(answer.user).content);
+            let action = JSON.parse(answer.body);
+            showGreeting(action.user + ' answered question: ' + action.questionId + ' at ' + action.timestamp );
         });
     });
 }
