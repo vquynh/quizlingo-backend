@@ -2,6 +2,13 @@ package de.oncampus.quizlingo.controller;
 
 
 public class UserInteraction {
+    public UserInteraction(String user, String sessionId, int selectedAnswer, long questionId) {
+        this.user = user;
+        this.sessionId = sessionId;
+        this.selectedAnswer = selectedAnswer;
+        this.questionId = questionId;
+    }
+
     String user;
     String sessionId;
     int selectedAnswer;

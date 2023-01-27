@@ -10,10 +10,21 @@ import java.util.Date;
 @Controller
 public class InteractionController {
 
+    /*
+
+
     @MessageMapping("/interaction")
     @SendTo("/topic/messages")
     public AnswerResultMessage send(final UserInteraction interaction) throws Exception {
         final String time = new SimpleDateFormat("HH:mm").format(new Date());
         return new AnswerResultMessage(interaction.user, time, interaction.selectedAnswer, interaction.getQuestionId(), true);
+    }
+     */
+
+    @MessageMapping("/app/websocket")
+    @SendTo("/topic/interactions")
+    public AnswerResultMessage send(final String interaction) throws Exception {
+        final String time = new SimpleDateFormat("HH:mm").format(new Date());
+        return new AnswerResultMessage(interaction, time, 1, 1, true);
     }
 }
