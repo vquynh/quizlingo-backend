@@ -18,8 +18,9 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/interactions', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/topic/interactions', function (answer) {
+            console.log('Answer: ' + answer);
+            showGreeting(JSON.parse(answer.user).content);
         });
     });
 }
@@ -33,7 +34,9 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/websocket", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/websocket", {}, JSON.stringify({'user': $("#name").val(),
+        'selectedAnswer': 1,
+        'questionId': 1}));
 }
 
 function showGreeting(message) {

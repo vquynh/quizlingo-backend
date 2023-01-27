@@ -3,6 +3,7 @@ package de.oncampus.quizlingo.controller;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,8 +24,15 @@ public class InteractionController {
 
     @MessageMapping("/app/websocket")
     @SendTo("/topic/interactions")
-    public AnswerResultMessage send(final String interaction) throws Exception {
+    @CrossOrigin(originPatterns = "*")
+    public AnswerResultMessage send(final UserInteraction interaction) throws Exception {
         final String time = new SimpleDateFormat("HH:mm").format(new Date());
-        return new AnswerResultMessage(interaction, time, 1, 1, true);
+        // note the selected answer
+
+        //
+
+        return new AnswerResultMessage(interaction.user, time, interaction.questionId);
+
+        // wh
     }
 }
