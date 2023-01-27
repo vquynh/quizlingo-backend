@@ -10,7 +10,6 @@ import java.util.Date;
 
 
 @Controller
-@CrossOrigin
 public class InteractionController {
 
     /*
