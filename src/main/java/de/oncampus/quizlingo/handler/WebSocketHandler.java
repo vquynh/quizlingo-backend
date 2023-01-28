@@ -12,12 +12,17 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
     private final InteractionService interactionService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public WebSocketHandler(InteractionService interactionService, ObjectMapper objectMapper) {
+    private final Map<String, WebSocketSession> idToActiveSession = new HashMap<>();
+
+    public WebSocketHandler(InteractionService interactionService) {
         this.interactionService = interactionService;
     }
 
@@ -30,11 +35,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        idToActiveSession.remove(session.getId());
+        super.afterConnectionClosed(session, status);
         LOG.info(String.format("Session %s closed because of %s", session.getId(), status.getReason()));
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        idToActiveSession.put(session.getId(), session);
+        super.afterConnectionEstablished(session);
         LOG.info("Connected ... " + session.getId());
     }
 
@@ -44,6 +53,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
         AnswerResult dto = interactionService.addInteraction(
                 objectMapper.readValue(jsonTextMessage.getPayload(),
                 InteractionCommand.class));
-        session.sendMessage(new TextMessage(objectMapper.writeValueAsString(dto)));
+        for (Map.Entry<String, WebSocketSession> otherSession : idToActiveSession.entrySet()) {
+            otherSession.getValue().sendMessage(new TextMessage(objectMapper.writeValueAsString(dto)));
+        }
     }
 }
