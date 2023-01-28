@@ -1,6 +1,6 @@
 package de.oncampus.quizlingo.service;
 
-import de.oncampus.quizlingo.domain.dto.UserDto;
+import de.oncampus.quizlingo.domain.dto.UserDTO;
 import de.oncampus.quizlingo.domain.model.user.User;
 import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public User save(UserDto user) {
+	public User save(UserDTO user) {
 		User newUser = new User();
 		newUser.setUserName(user.getUsername());
 		newUser.setName(user.getName());

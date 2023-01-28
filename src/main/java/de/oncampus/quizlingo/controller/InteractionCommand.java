@@ -1,24 +1,20 @@
 package de.oncampus.quizlingo.controller;
 
 
-public class UserInteraction {
-    public UserInteraction(String user, int selectedAnswer, long questionId) {
-        this.user = user;
-        this.selectedAnswer = selectedAnswer;
-        this.questionId = questionId;
+public class InteractionCommand {
+
+    private String username;
+    private String sessionId;
+    private int selectedAnswer;
+    private long questionId;
+    private long gameId;
+
+    public String getUsername() {
+        return username;
     }
 
-    String user;
-    String sessionId;
-    int selectedAnswer;
-    long questionId;
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getSessionId() {
@@ -43,5 +39,13 @@ public class UserInteraction {
 
     public void setQuestionId(long questionId) {
         this.questionId = questionId;
+    }
+
+    public long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
     }
 }

@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.controller;
 
 import de.oncampus.quizlingo.config.JwtTokenUtil;
-import de.oncampus.quizlingo.domain.dto.UserDto;
+import de.oncampus.quizlingo.domain.dto.UserDTO;
 import de.oncampus.quizlingo.domain.model.JwtRequest;
 import de.oncampus.quizlingo.domain.model.JwtResponse;
 import de.oncampus.quizlingo.service.JwtUserDetailsService;
@@ -43,7 +43,7 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 

@@ -4,9 +4,8 @@ import de.oncampus.quizlingo.validation.ValidPassword;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
-public class UserDto {
+public class UserDTO {
 
     @NotNull
     @Size(min = 1, message = "{Size.userDto.username}")

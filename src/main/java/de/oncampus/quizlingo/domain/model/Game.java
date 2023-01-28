@@ -17,14 +17,11 @@ public class Game {
 
     private Date endedAt;
 
-    @OneToMany
-    private List<Round> rounds;
-
-   @ManyToMany(mappedBy = "games")
+    @ManyToMany(mappedBy = "games")
     private Collection<User> users;
 
-   @OneToOne
-   private User wonBy;
+    @OneToOne
+    private User wonBy;
 
     private boolean isEnded;
 
@@ -50,14 +47,6 @@ public class Game {
 
     public void setEndedAt(Date endedAt) {
         this.endedAt = endedAt;
-    }
-
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
     }
 
     public boolean isEnded() {
