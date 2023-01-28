@@ -29,7 +29,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSoc
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "/websocket-native");
+        registry.addHandler(webSocketHandler, "/websocket-native")
+                .setAllowedOrigins("http://localhost:5001/", "http://localhost:3000/");
     }
 }
 
