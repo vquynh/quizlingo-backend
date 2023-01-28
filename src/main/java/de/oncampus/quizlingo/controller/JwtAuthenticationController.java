@@ -13,6 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
+/**
+ * REST-Controller for registering and authenticating a user.
+ */
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -23,12 +27,25 @@ public class JwtAuthenticationController {
 
 	private final JwtUserDetailsService userDetailsService;
 
+	/**
+	 * Injects the required dependencies for the JwtAuthenticationController
+	 *
+	 * @param authenticationManager is the default AuthenticationManager from Spring
+	 * @param jwtTokenUtil is the helper service for generating JWT token
+	 * @param userDetailsService is the service for persisting and retrieving user details
+	 */
 	public JwtAuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, JwtUserDetailsService userDetailsService) {
 		this.authenticationManager = authenticationManager;
 		this.jwtTokenUtil = jwtTokenUtil;
 		this.userDetailsService = userDetailsService;
 	}
 
+	/**
+	 * Creates a token for the given authentication request
+	 *
+	 * @param  authenticationRequest contains the username and password to authenticate the user
+	 * @return ResponseEntity  ok (200) with generated token if the authentication is successful
+	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
@@ -41,9 +58,16 @@ public class JwtAuthenticationController {
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-	
+
+
+	/**
+	 * Creates a new user
+	 *
+	 * @param  user contains the details of the user
+	 * @return ResponseEntity  ok (200) with persisted user (without password)
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+	public ResponseEntity<?> createUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 

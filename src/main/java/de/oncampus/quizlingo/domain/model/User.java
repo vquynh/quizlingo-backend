@@ -1,4 +1,4 @@
-package de.oncampus.quizlingo.domain.model.user;
+package de.oncampus.quizlingo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.oncampus.quizlingo.domain.model.Game;

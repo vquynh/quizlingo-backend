@@ -1,11 +1,8 @@
 package de.oncampus.quizlingo.domain.model;
 
-import de.oncampus.quizlingo.domain.model.user.User;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Game {

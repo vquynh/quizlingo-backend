@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.UserDTO;
-import de.oncampus.quizlingo.domain.model.user.User;
+import de.oncampus.quizlingo.domain.model.User;
 import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

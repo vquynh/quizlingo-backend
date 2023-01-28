@@ -1,16 +1,18 @@
 package de.oncampus.quizlingo.domain.dto;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.socket.AbstractWebSocketMessage;
-
-public class UserInteractionDTO{
+public class UserInteractionDTO {
 
     private String username;
     private String timestamp;
     private long questionId;
     private long gameId;
+
+    private int selectedAnswer;
+
+    private boolean isCorrect;
+
+    private int totalScore;
 
     public String getUsername() {
         return username;
@@ -40,5 +42,29 @@ public class UserInteractionDTO{
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getSelectedAnswer() {
+        return selectedAnswer;
+    }
+
+    public void setSelectedAnswer(int selectedAnswer) {
+        this.selectedAnswer = selectedAnswer;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 }

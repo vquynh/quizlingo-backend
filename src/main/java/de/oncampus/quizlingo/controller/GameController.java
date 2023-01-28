@@ -7,7 +7,7 @@ import de.oncampus.quizlingo.service.GameService;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST-Controller für all game-related requests.
+ * REST-Controller for all game-related requests.
  */
 @RestController
 public class GameController {

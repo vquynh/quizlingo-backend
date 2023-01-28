@@ -18,6 +18,8 @@ public class Interaction {
     private int selectedAnswer;
     private long questionId;
     private long gameId;
+    private int totalScore;
+    private boolean isCorrect;
 
     public String getUser() {
         return user;
@@ -64,5 +66,21 @@ public class Interaction {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalPoint) {
+        this.totalScore = totalPoint;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 }

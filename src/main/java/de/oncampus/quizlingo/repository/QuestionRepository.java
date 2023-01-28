@@ -10,4 +10,5 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 
     List<Question> findQuestionsByTopic(Topic topic);
 
+    Question findQuestionById(long id);
 }

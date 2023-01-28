@@ -6,6 +6,7 @@ public class InteractionCommand {
     private String username;
     private String sessionId;
     private int selectedAnswer;
+    private int currentScore;
     private long questionId;
     private long gameId;
 
@@ -47,5 +48,13 @@ public class InteractionCommand {
 
     public void setGameId(long gameId) {
         this.gameId = gameId;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 }

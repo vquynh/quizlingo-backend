@@ -2,7 +2,7 @@ package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.GameDTO;
 import de.oncampus.quizlingo.domain.model.Game;
-import de.oncampus.quizlingo.domain.model.user.User;
+import de.oncampus.quizlingo.domain.model.User;
 import de.oncampus.quizlingo.exception.InvalidNumberOfPlayers;
 import de.oncampus.quizlingo.exception.PlayerNotFoundException;
 import de.oncampus.quizlingo.repository.GameRepository;
