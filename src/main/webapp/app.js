@@ -34,8 +34,9 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
-    stompClient.send("/app/websocket", {}, JSON.stringify({'username': $("#name").val(),
+function sendMessage() {
+    stompClient.send("/app/websocket", {}, JSON.stringify(
+        {'username': $("#name").val(),
         'selectedAnswer': 1,
         'questionId': 1}));
 }
@@ -50,5 +51,5 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
+    $( "#send" ).click(function() { sendMessage(); });
 });

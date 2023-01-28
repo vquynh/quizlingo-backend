@@ -1,7 +1,11 @@
 package de.oncampus.quizlingo.domain.dto;
 
 
-public class UserInteractionDTO {
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.socket.AbstractWebSocketMessage;
+
+public class UserInteractionDTO{
 
     private String username;
     private String timestamp;

@@ -1,12 +1,18 @@
 package de.oncampus.quizlingo.config;
 
+import de.oncampus.quizlingo.handler.WebSocketHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSocketConfigurer {
+
+    @Autowired
+    protected WebSocketHandler webSocketHandler;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -19,6 +25,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOrigins("http://localhost:5001/", "http://localhost:3000/");
         registry.addEndpoint("/websocket")
                 .setAllowedOrigins("http://localhost:5001/", "http://localhost:3000/").withSockJS();
+    }
+
+    @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(webSocketHandler, "/websocket-native");
     }
 }
 
