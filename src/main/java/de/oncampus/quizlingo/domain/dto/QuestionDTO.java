@@ -1,16 +1,18 @@
 package de.oncampus.quizlingo.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class QuestionDTO {
 
+    @JsonIgnore
     private Integer correctOption;
     private String taskText;
 
-    public QuestionDTO(Long id, String questionText, String taskText, String category, String type, Integer level, List<String> terms, List<String> options, Integer correctOption) {
+    public QuestionDTO(Long id, String questionText, String taskText, String category, String type, List<String> terms, List<String> options, Integer correctOption) {
         this.id = id;
         this.category = category;
-        this.level = level;
         this.type = type;
         this.taskText = taskText;
         this.questionText = questionText;
@@ -24,9 +26,6 @@ public class QuestionDTO {
     private String type;
     private List<String> terms;
     private List<String> options;
-    private Integer correctAnswer;
-    private Integer level;
-
     public String getQuestionText() {
         return questionText;
     }
@@ -57,14 +56,6 @@ public class QuestionDTO {
 
     public void setOptions(List<String> options) {
         this.options = options;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Long getId() {

@@ -1,14 +1,14 @@
 package de.oncampus.quizlingo.domain.dto;
 
 
-public class UserInteractionDTO {
+public class AnswerResult {
 
     private String username;
     private String timestamp;
     private long questionId;
     private long gameId;
-
     private int selectedAnswer;
+    private int correctAnswer;
 
     private boolean isCorrect;
 
@@ -66,5 +66,13 @@ public class UserInteractionDTO {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public int getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

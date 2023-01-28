@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.controller.InteractionCommand;
-import de.oncampus.quizlingo.domain.dto.UserInteractionDTO;
+import de.oncampus.quizlingo.domain.dto.AnswerResult;
 import de.oncampus.quizlingo.domain.model.Interaction;
 import de.oncampus.quizlingo.repository.InteractionRepository;
 import de.oncampus.quizlingo.repository.QuestionRepository;
@@ -22,7 +22,7 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
-    public UserInteractionDTO addInteraction(InteractionCommand interactionCommand) {
+    public AnswerResult addInteraction(InteractionCommand interactionCommand) {
         Interaction interaction = new Interaction();
         interaction.setGameId(interactionCommand.getGameId());
         interaction.setQuestionId(interactionCommand.getQuestionId());
@@ -30,17 +30,17 @@ public class InteractionServiceImpl implements InteractionService {
         interaction.setUser(interactionCommand.getUsername());
         int selectedAnswer = interactionCommand.getSelectedAnswer();
         interaction.setSelectedAnswer(selectedAnswer);
-        boolean isCorrect = questionRepository.findQuestionById(interactionCommand.getQuestionId()).getCorrectOption()
-                == selectedAnswer;
+        int correctAnswer = questionRepository.findQuestionById(interactionCommand.getQuestionId()).getCorrectOption();
+        boolean isCorrect = correctAnswer == selectedAnswer;
         int newScore = isCorrect ? interactionCommand.getCurrentScore() + 1 : interactionCommand.getCurrentScore();
         interaction.setCorrect(isCorrect);
         interaction.setTotalScore(newScore);
         interactionRepository.save(interaction);
-        return toInteractionDTO(interaction);
+        return toInteractionDTO(interaction, correctAnswer);
     }
 
-    private UserInteractionDTO toInteractionDTO(Interaction interaction) {
-        UserInteractionDTO dto = new UserInteractionDTO();
+    private AnswerResult toInteractionDTO(Interaction interaction, int correctAnswer) {
+        AnswerResult dto = new AnswerResult();
         dto.setGameId(interaction.getGameId());
         dto.setTimestamp(new SimpleDateFormat("HH:mm:ss.SSSZ").format(interaction.getTime()));
         dto.setUsername(interaction.getUser());
@@ -48,6 +48,7 @@ public class InteractionServiceImpl implements InteractionService {
         dto.setCorrect(interaction.isCorrect());
         dto.setTotalScore(interaction.getTotalScore());
         dto.setSelectedAnswer(interaction.getSelectedAnswer());
+        dto.setCorrectAnswer(correctAnswer);
         return dto;
     }
 }

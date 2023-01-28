@@ -40,7 +40,6 @@ public class QuestionServiceImpl implements QuestionService {
                 question.getTaskText(),
                 question.getTopic().getName(),
                 question.getType(),
-                question.getLevel(),
                 terms,
                 question.getOptions(),
                 question.getCorrectOption());

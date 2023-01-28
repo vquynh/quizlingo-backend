@@ -1,6 +1,6 @@
 package de.oncampus.quizlingo.controller;
 
-import de.oncampus.quizlingo.domain.dto.UserInteractionDTO;
+import de.oncampus.quizlingo.domain.dto.AnswerResult;
 import de.oncampus.quizlingo.service.InteractionService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,7 +18,7 @@ public class InteractionController {
 
     @MessageMapping("/app/websocket")
     @SendTo("/topic/interactions")
-    public UserInteractionDTO send(final InteractionCommand interactionCommand) {
+    public AnswerResult send(final InteractionCommand interactionCommand) {
         return interactionService.addInteraction(interactionCommand);
     }
 }

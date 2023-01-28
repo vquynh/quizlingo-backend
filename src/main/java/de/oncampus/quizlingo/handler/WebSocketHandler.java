@@ -2,7 +2,7 @@ package de.oncampus.quizlingo.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.oncampus.quizlingo.controller.InteractionCommand;
-import de.oncampus.quizlingo.domain.dto.UserInteractionDTO;
+import de.oncampus.quizlingo.domain.dto.AnswerResult;
 import de.oncampus.quizlingo.service.InteractionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
         LOG.info("message received: " + jsonTextMessage.getPayload());
-        UserInteractionDTO dto = interactionService.addInteraction(objectMapper.readValue(jsonTextMessage.getPayload(), InteractionCommand.class));
+        AnswerResult dto = interactionService.addInteraction(
+                objectMapper.readValue(jsonTextMessage.getPayload(),
+                InteractionCommand.class));
         session.sendMessage(new TextMessage(objectMapper.writeValueAsString(dto)));
     }
 }
