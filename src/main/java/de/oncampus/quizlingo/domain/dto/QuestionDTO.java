@@ -6,7 +6,6 @@ import java.util.List;
 
 public class QuestionDTO {
 
-    @JsonIgnore
     private Integer correctOption;
     private String taskText;
 
