@@ -10,7 +10,7 @@ create table term (id int8 not null, conjugation varchar(255), name varchar(255)
 create table term_example_list (term_id int8 not null, example_list_id int8 not null)
 create table term_keyword_list (term_id int8 not null, keyword_list_id int8 not null)
 create table topic (id int8 not null, name varchar(255), primary key (id))
-create table user (id int8 not null, average_score int4 not null, country varchar(255), created_at timestamp, first_name varchar(255), high_score int4 not null, last_name varchar(255), level int4, password varchar(255), profile_pic_url varchar(255), total_score int4 not null, updated_at timestamp, user_name varchar(255), primary key (id))
+create table quizUser (id int8 not null, average_score int4 not null, country varchar(255), created_at timestamp, first_name varchar(255), high_score int4 not null, last_name varchar(255), level int4, password varchar(255), profile_pic_url varchar(255), total_score int4 not null, updated_at timestamp, user_name varchar(255), primary key (id))
 create table players_games (user_id int8 not null, game_id int8 not null)
 alter table game_rounds drop constraint UK_gwn3wpw21acccak4odbxhpola
 alter table game_rounds add constraint UK_gwn3wpw21acccak4odbxhpola unique (rounds_id)
@@ -27,7 +27,7 @@ alter table term_example_list add constraint UK_8no7uk7kloyks04ermr9waxbq unique
 alter table term_keyword_list drop constraint UK_bsr2n8m6vtbesh1qrbmprpc1b
 alter table term_keyword_list add constraint UK_bsr2n8m6vtbesh1qrbmprpc1b unique (keyword_list_id)
 create sequence hibernate_sequence start 1 increment 1
-alter table game add constraint FK90jigwy2a1aejf52w61ckgxrf foreign key (won_by_id) references user
+alter table game add constraint FK90jigwy2a1aejf52w61ckgxrf foreign key (won_by_id) references quizUser
 alter table game_rounds add constraint FK378y0jg9i07kroelcx5qif7ww foreign key (rounds_id) references round
 alter table game_rounds add constraint FKhwg9acgvm267aqpi5wj3wm54h foreign key (game_id) references game
 alter table option_term_list add constraint FKrowu6fmw8tnbx077k38jv632g foreign key (term_list_id) references term
@@ -45,4 +45,4 @@ alter table term_example_list add constraint FK2g0w9r55mhic3nhg662f9fmt3 foreign
 alter table term_keyword_list add constraint FKqyqk8oy44m94gm0t5penepnf9 foreign key (keyword_list_id) references keyword
 alter table term_keyword_list add constraint FK3wb15m62yq332imw2i2w0pfo5 foreign key (term_id) references term
 alter table players_games add constraint FKo6k8awat8x90tksian1x3cjsl foreign key (game_id) references game
-alter table players_games add constraint FKbfj6ehn3lbgn02bax5lkcsork foreign key (user_id) references user
+alter table players_games add constraint FKbfj6ehn3lbgn02bax5lkcsork foreign key (user_id) references quizUser

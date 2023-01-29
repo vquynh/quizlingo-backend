@@ -2,7 +2,7 @@ package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.GameDTO;
 import de.oncampus.quizlingo.domain.model.Game;
-import de.oncampus.quizlingo.domain.model.User;
+import de.oncampus.quizlingo.domain.model.QuizUser;
 import de.oncampus.quizlingo.exception.InvalidNumberOfPlayers;
 import de.oncampus.quizlingo.exception.PlayerNotFoundException;
 import de.oncampus.quizlingo.repository.GameRepository;
@@ -37,16 +37,16 @@ public class GameServiceImpl implements GameService {
 
     private Game toGameEntity(GameDTO gameDTO) throws InvalidNumberOfPlayers, PlayerNotFoundException {
         Game game = new Game();
-        List<User> users = new ArrayList<>();
+        List<QuizUser> quizUsers = new ArrayList<>();
         List<String> playersNames = gameDTO.getPlayers();
         if(playersNames.size() != 2){
             throw new InvalidNumberOfPlayers("Number of players is not 2. Found: " + gameDTO.getPlayers().size());
         }
-        User user1 = userRepository.findByUserName(playersNames.get(0));
-        users.add(user1);
-        User user2 = userRepository.findByUserName(playersNames.get(1));
-        users.add(user2);
-        game.setUsers(users);
+        QuizUser quizUser1 = userRepository.findByUserName(playersNames.get(0));
+        quizUsers.add(quizUser1);
+        QuizUser quizUser2 = userRepository.findByUserName(playersNames.get(1));
+        quizUsers.add(quizUser2);
+        game.setUsers(quizUsers);
         game.setStartedAt(gameDTO.getStartTimestamp());
         return game;
     }

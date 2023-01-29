@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.UserDTO;
-import de.oncampus.quizlingo.domain.model.User;
+import de.oncampus.quizlingo.domain.model.QuizUser;
 import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,21 +23,21 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUserName(username);
-		if (user == null) {
+		QuizUser quizUser = userRepository.findByUserName(username);
+		if (quizUser == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPasswordHash(),
+		return new org.springframework.security.core.userdetails.User(quizUser.getUserName(), quizUser.getPasswordHash(),
 				new ArrayList<>());
 	}
 	
-	public User save(UserDTO user) {
-		User newUser = new User();
-		newUser.setUserName(user.getUsername());
-		newUser.setName(user.getName());
-		newUser.setGames(new ArrayList<>());
-		newUser.setImageURL(user.getImageURL());
-		newUser.setPasswordHash(bcryptEncoder.encode(user.getPassword()));
-		return userRepository.save(newUser);
+	public QuizUser save(UserDTO user) {
+		QuizUser newQuizUser = new QuizUser();
+		newQuizUser.setUserName(user.getUsername());
+		newQuizUser.setName(user.getName());
+		newQuizUser.setGames(new ArrayList<>());
+		newQuizUser.setImageURL(user.getImageURL());
+		newQuizUser.setPasswordHash(bcryptEncoder.encode(user.getPassword()));
+		return userRepository.save(newQuizUser);
 	}
 }

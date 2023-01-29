@@ -15,10 +15,10 @@ public class Game {
     private Date endedAt;
 
     @ManyToMany(mappedBy = "games")
-    private Collection<User> users;
+    private Collection<QuizUser> quizUsers;
 
     @OneToOne
-    private User wonBy;
+    private QuizUser wonBy;
 
     private boolean isEnded;
 
@@ -54,19 +54,19 @@ public class Game {
         isEnded = ended;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    public Collection<QuizUser> getUsers() {
+        return quizUsers;
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setUsers(Collection<QuizUser> quizUsers) {
+        this.quizUsers = quizUsers;
     }
 
-    public User getWonBy() {
+    public QuizUser getWonBy() {
         return wonBy;
     }
 
-    public void setWonBy(User wonBy) {
+    public void setWonBy(QuizUser wonBy) {
         this.wonBy = wonBy;
     }
 }

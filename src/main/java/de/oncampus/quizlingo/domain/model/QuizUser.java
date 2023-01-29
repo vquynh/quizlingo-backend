@@ -1,14 +1,13 @@
 package de.oncampus.quizlingo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.oncampus.quizlingo.domain.model.Game;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class User {
+public class QuizUser {
 
     @Id
     @Column(unique = true, nullable = false)

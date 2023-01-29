@@ -27,7 +27,7 @@ public class InteractionServiceImpl implements InteractionService {
         interaction.setGameId(interactionCommand.getGameId());
         interaction.setQuestionId(interactionCommand.getQuestionId());
         interaction.setTime(new Date());
-        interaction.setUser(interactionCommand.getUsername());
+        interaction.setUsername(interactionCommand.getUsername());
         int selectedAnswer = interactionCommand.getSelectedAnswer();
         interaction.setSelectedAnswer(selectedAnswer);
         int correctAnswer = questionRepository.findQuestionById(interactionCommand.getQuestionId()).getCorrectOption();
@@ -43,7 +43,7 @@ public class InteractionServiceImpl implements InteractionService {
         AnswerResult dto = new AnswerResult();
         dto.setGameId(interaction.getGameId());
         dto.setTimestamp(new SimpleDateFormat("HH:mm:ss.SSSZ").format(interaction.getTime()));
-        dto.setUsername(interaction.getUser());
+        dto.setUsername(interaction.getUsername());
         dto.setQuestionId(interaction.getQuestionId());
         dto.setCorrect(interaction.isCorrect());
         dto.setTotalScore(interaction.getTotalScore());

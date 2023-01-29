@@ -13,7 +13,7 @@ public class Interaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String user;
+    private String username;
     private Date time;
     private int selectedAnswer;
     private long questionId;
@@ -21,12 +21,12 @@ public class Interaction {
     private int totalScore;
     private boolean isCorrect;
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String user) {
+        this.username = user;
     }
 
     public int getSelectedAnswer() {
