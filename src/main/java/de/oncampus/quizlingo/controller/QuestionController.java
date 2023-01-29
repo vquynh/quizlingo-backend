@@ -25,6 +25,7 @@ public class QuestionController {
      * @return  the list of all questions
      */
     @GetMapping("/questions")
+    @CrossOrigin
     public List<QuestionDTO> getAllQuestions(){
         return questionService.getAllQuestions();
     }
