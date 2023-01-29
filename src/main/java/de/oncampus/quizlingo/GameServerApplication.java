@@ -15,7 +15,6 @@ public class GameServerApplication extends SpringBootServletInitializer {
         SpringApplication.run(GameServerApplication.class, args);
     }
 
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
