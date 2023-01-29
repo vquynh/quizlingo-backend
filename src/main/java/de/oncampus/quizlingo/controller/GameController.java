@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * REST-Controller for all game-related requests.
  */
+@CrossOrigin(origins = {"http://localhost:3000", "https://quizling.vercel.app"})
 @RestController
 public class GameController {
 
