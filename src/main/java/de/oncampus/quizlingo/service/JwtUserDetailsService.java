@@ -35,9 +35,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 		QuizUser newQuizUser = new QuizUser();
 		newQuizUser.setUserName(user.getUsername());
 		newQuizUser.setName(user.getName());
-		newQuizUser.setGames(new ArrayList<>());
 		newQuizUser.setImageURL(user.getImageURL());
 		newQuizUser.setPasswordHash(bcryptEncoder.encode(user.getPassword()));
 		return userRepository.save(newQuizUser);
+	}
+
+	public void delete(String username) {
+		QuizUser user = userRepository.findByUserName(username);
+		userRepository.delete(user);
 	}
 }

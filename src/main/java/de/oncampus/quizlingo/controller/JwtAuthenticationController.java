@@ -58,7 +58,6 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
-
 	/**
 	 * Creates a new user
 	 *
@@ -68,6 +67,18 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+
+	/**
+	 * Deletes an existing user
+	 *
+	 * @param  username the username of the user to be deleted
+	 * @return ResponseEntity  ok (200)
+	 */
+	@RequestMapping(value = "/users/{username}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUser(@PathVariable String username) {
+		userDetailsService.delete(username);
+		return ResponseEntity.ok("Deleted");
 	}
 
 	private void authenticate(String username, String password) throws Exception {

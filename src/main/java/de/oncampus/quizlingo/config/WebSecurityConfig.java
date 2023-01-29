@@ -63,7 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/*").permitAll()
                 .antMatchers("/websocket/**")
                 .permitAll()
-                .antMatchers("/websocket-native/**")
+                .antMatchers("/websocket-game/**")
+                .permitAll()
+                .antMatchers("/websocket-answer/**")
                 .permitAll().
         // all other requests need to be authenticated
                         anyRequest().authenticated().and().

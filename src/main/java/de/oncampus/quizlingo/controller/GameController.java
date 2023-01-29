@@ -43,8 +43,8 @@ public class GameController {
      * @throws PlayerNotFoundException thrown when the user given in the GameDTO object can not be found
      */
     @PostMapping("/games")
-    public GameDTO createGame(@RequestBody GameDTO gameDTO) throws InvalidNumberOfPlayers, PlayerNotFoundException {
-        return gameService.addGame(gameDTO);
+    public GameDTO createGame(@RequestBody GameDTO gameDTO) {
+        return gameService.saveGame(gameDTO);
     }
 
 

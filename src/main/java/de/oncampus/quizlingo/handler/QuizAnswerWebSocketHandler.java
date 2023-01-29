@@ -1,9 +1,9 @@
 package de.oncampus.quizlingo.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.oncampus.quizlingo.controller.InteractionCommand;
-import de.oncampus.quizlingo.domain.dto.AnswerResult;
-import de.oncampus.quizlingo.service.InteractionService;
+import de.oncampus.quizlingo.controller.QuizAnswer;
+import de.oncampus.quizlingo.service.GameService;
+import de.oncampus.quizlingo.service.QuizAnswerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -19,16 +19,18 @@ import java.util.Map;
  * A handler for WebSocket messages from quizlingo clients.
  */
 @Component
-public class QuizlingoWebSocketHandler extends TextWebSocketHandler {
-    private final InteractionService interactionService;
+public class QuizAnswerWebSocketHandler extends TextWebSocketHandler {
+    private final QuizAnswerService quizAnswerService;
+    private final GameService gameService;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, WebSocketSession> idToActiveSession = new HashMap<>();
 
-    public QuizlingoWebSocketHandler(InteractionService interactionService) {
-        this.interactionService = interactionService;
+    public QuizAnswerWebSocketHandler(QuizAnswerService quizAnswerService, GameService gameService) {
+        this.quizAnswerService = quizAnswerService;
+        this.gameService = gameService;
     }
 
-    private static final Logger LOG = LoggerFactory.getLogger(QuizlingoWebSocketHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QuizAnswerWebSocketHandler.class);
 
     /**
      * Handles transport error that happen during a Websocket session
@@ -43,8 +45,7 @@ public class QuizlingoWebSocketHandler extends TextWebSocketHandler {
     }
 
     /**
-     * Adds the session to the map idToActiveSession of active sessions
-     * after connection is established
+     * Logs when a websocket session is connected and adds session to the map idToActiveSession of active sessions
      *
      * @param session is the current WebSocketSession
      */
@@ -56,7 +57,7 @@ public class QuizlingoWebSocketHandler extends TextWebSocketHandler {
     }
 
     /**
-     * Removes the session from the map idToActiveSession of active sessions
+     * Removes the session from the map sessionIdToGameId of active sessions
      * after connection is closed
      *
      * @param session is the current WebSocketSession
@@ -78,15 +79,18 @@ public class QuizlingoWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
         LOG.info("message received: " + jsonTextMessage.getPayload());
-        // Get the AnswerResult for the given user interaction
-        AnswerResult answerResult = interactionService.addInteraction(
-                objectMapper.readValue(jsonTextMessage.getPayload(),
-                InteractionCommand.class));
-        // Send the AnswerResult as text message to all active sessions
-        // TODO: only send messages to the sessions of the same game
-        // We can do this by storing the gameId in the idToActiveSession
-        for (Map.Entry<String, WebSocketSession> otherSession : idToActiveSession.entrySet()) {
-            otherSession.getValue().sendMessage(new TextMessage(objectMapper.writeValueAsString(answerResult)));
+        // Read the jsonTextMessage payload as QuizAnswer
+        QuizAnswer quizAnswer = objectMapper.readValue(jsonTextMessage.getPayload(),
+                QuizAnswer.class);
+        // Get the AnswerResult for the given QuizAnswer
+        AnswerResult answerResult = quizAnswerService.addQuizAnswer(quizAnswer);
+        // Send the AnswerResult as text message to all active sessions of this game
+        for (String sessionId : gameService.getGameById(answerResult.getGameId()).getSessions()
+             ) {
+            idToActiveSession.get(sessionId)
+                    .sendMessage(new TextMessage(objectMapper.writeValueAsString(answerResult)));
+
         }
     }
+
 }

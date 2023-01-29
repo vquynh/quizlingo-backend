@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.controller;
 
 
-public class InteractionCommand {
+public class QuizAnswer {
 
     private String username;
     private String sessionId;

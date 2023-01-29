@@ -1,8 +1,7 @@
 package de.oncampus.quizlingo.domain.model;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 public class Game {
@@ -14,11 +13,15 @@ public class Game {
 
     private Date endedAt;
 
-    @ManyToMany(mappedBy = "games")
-    private Collection<QuizUser> quizUsers;
+    @ElementCollection
+    private List<String> sessions;
 
-    @OneToOne
-    private QuizUser wonBy;
+    public void setQuizUsers(List<String> quizUsers) {
+        this.quizUsers = quizUsers;
+    }
+
+    @ElementCollection
+    private List<String> quizUsers;
 
     private boolean isEnded;
 
@@ -54,19 +57,15 @@ public class Game {
         isEnded = ended;
     }
 
-    public Collection<QuizUser> getUsers() {
-        return quizUsers;
+    public List<String> getQuizUsers() {
+        return this.quizUsers;
     }
 
-    public void setUsers(Collection<QuizUser> quizUsers) {
-        this.quizUsers = quizUsers;
+    public List<String> getSessions() {
+        return this.sessions;
     }
 
-    public QuizUser getWonBy() {
-        return wonBy;
-    }
-
-    public void setWonBy(QuizUser wonBy) {
-        this.wonBy = wonBy;
+    public void setSessions(List<String> sessions) {
+        this.sessions = sessions;
     }
 }

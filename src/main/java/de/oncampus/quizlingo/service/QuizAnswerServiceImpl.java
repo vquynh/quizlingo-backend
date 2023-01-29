@@ -1,7 +1,7 @@
 package de.oncampus.quizlingo.service;
 
-import de.oncampus.quizlingo.controller.InteractionCommand;
-import de.oncampus.quizlingo.domain.dto.AnswerResult;
+import de.oncampus.quizlingo.controller.QuizAnswer;
+import de.oncampus.quizlingo.handler.AnswerResult;
 import de.oncampus.quizlingo.domain.model.Interaction;
 import de.oncampus.quizlingo.repository.InteractionRepository;
 import de.oncampus.quizlingo.repository.QuestionRepository;
@@ -11,28 +11,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-public class InteractionServiceImpl implements InteractionService {
+public class QuizAnswerServiceImpl implements QuizAnswerService {
 
     private final InteractionRepository interactionRepository;
     private final QuestionRepository questionRepository;
 
-    public InteractionServiceImpl(InteractionRepository interactionRepository, QuestionRepository questionRepository) {
+    public QuizAnswerServiceImpl(InteractionRepository interactionRepository, QuestionRepository questionRepository) {
         this.interactionRepository = interactionRepository;
         this.questionRepository = questionRepository;
     }
 
     @Override
-    public AnswerResult addInteraction(InteractionCommand interactionCommand) {
+    public AnswerResult addQuizAnswer(QuizAnswer quizAnswer) {
         Interaction interaction = new Interaction();
-        interaction.setGameId(interactionCommand.getGameId());
-        interaction.setQuestionId(interactionCommand.getQuestionId());
+        interaction.setGameId(quizAnswer.getGameId());
+        interaction.setQuestionId(quizAnswer.getQuestionId());
         interaction.setTime(new Date());
-        interaction.setUsername(interactionCommand.getUsername());
-        int selectedAnswer = interactionCommand.getSelectedAnswer();
+        interaction.setUsername(quizAnswer.getUsername());
+        int selectedAnswer = quizAnswer.getSelectedAnswer();
         interaction.setSelectedAnswer(selectedAnswer);
-        int correctAnswer = questionRepository.findQuestionById(interactionCommand.getQuestionId()).getCorrectOption();
+        int correctAnswer = questionRepository.findQuestionById(quizAnswer.getQuestionId()).getCorrectOption();
         boolean isCorrect = correctAnswer == selectedAnswer;
-        int newScore = isCorrect ? interactionCommand.getCurrentScore() + 1 : interactionCommand.getCurrentScore();
+        int newScore = isCorrect ? quizAnswer.getCurrentScore() + 1 : quizAnswer.getCurrentScore();
         interaction.setCorrect(isCorrect);
         interaction.setTotalScore(newScore);
         interactionRepository.save(interaction);

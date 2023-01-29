@@ -1,4 +1,4 @@
-package de.oncampus.quizlingo.domain.dto;
+package de.oncampus.quizlingo.handler;
 
 
 public class AnswerResult {

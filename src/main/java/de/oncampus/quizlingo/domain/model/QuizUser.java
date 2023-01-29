@@ -3,6 +3,7 @@ package de.oncampus.quizlingo.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,30 +26,6 @@ public class QuizUser {
 
     @Column
     private String imageURL;
-
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "users_games",
-            joinColumns = {@JoinColumn(
-                    name = "user_id",
-                    referencedColumnName = "id"
-            )},
-            inverseJoinColumns = {@JoinColumn(
-                    name = "game_id",
-                    referencedColumnName = "id"
-            )}
-    )
-    private Collection<Game> games;
-
-    public Collection<Game> getGames() {
-        return List.copyOf(this.games);
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
 
     public void setId(Long id) {
         this.id = id;
