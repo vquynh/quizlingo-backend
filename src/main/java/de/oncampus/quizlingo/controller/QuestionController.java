@@ -10,6 +10,7 @@ import java.util.List;
  * REST-Controller for all question-related requests.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:3000,https://quizling.vercel.app")
 public class QuestionController {
 
     private final QuestionService questionService;

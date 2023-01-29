@@ -2,7 +2,6 @@ package de.oncampus.quizlingo.service;
 
 import de.oncampus.quizlingo.domain.dto.GameDTO;
 import de.oncampus.quizlingo.domain.model.Game;
-import de.oncampus.quizlingo.domain.model.QuizUser;
 import de.oncampus.quizlingo.repository.GameRepository;
 import de.oncampus.quizlingo.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -10,19 +9,15 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
-    private final UserRepository userRepository;
 
     public GameServiceImpl(GameRepository gameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
-        this.userRepository = userRepository;
     }
 
     @Override

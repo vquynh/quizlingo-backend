@@ -24,6 +24,7 @@ public class QuizAnswerWebSocketHandler extends TextWebSocketHandler {
     private final GameService gameService;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, WebSocketSession> idToActiveSession = new HashMap<>();
+    private final Map<String, String> usernameToSessionId = new HashMap<>();
 
     public QuizAnswerWebSocketHandler(QuizAnswerService quizAnswerService, GameService gameService) {
         this.quizAnswerService = quizAnswerService;
@@ -84,11 +85,10 @@ public class QuizAnswerWebSocketHandler extends TextWebSocketHandler {
                 QuizAnswer.class);
         // Get the AnswerResult for the given QuizAnswer
         AnswerResult answerResult = quizAnswerService.addQuizAnswer(quizAnswer);
-        // Send the AnswerResult as text message to all active sessions of this game
-        for (String sessionId : gameService.getGameById(answerResult.getGameId()).getSessions()
+        // Send the AnswerResult as text message to all active sessions
+        for (WebSocketSession activeSession : idToActiveSession.values()
              ) {
-            idToActiveSession.get(sessionId)
-                    .sendMessage(new TextMessage(objectMapper.writeValueAsString(answerResult)));
+            activeSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(answerResult)));
 
         }
     }
